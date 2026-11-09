@@ -8,7 +8,7 @@ Môi trường: Windows, Node.js 22.16.0, npm 10.9.2. Kiểm tra ứng dụng lo
 | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `npm run test:frontend`    | 12/12 qua; fixture scenario và response schema                                                                                                                |
 | `npm run contract:check`   | OpenAPI 3.1.1 hợp lệ; YAML/JSON đồng bộ; 38 operationId mới duy nhất (37 frontend + callback dành chỗ)                                                        |
-| `npm run check`            | Qua contract check, 44/44 tests (12 mới + 32 HTTP legacy), production build                                                                                   |
+| `npm run check`            | Qua contract check, 12/12 tests của browser mock hiện tại, production build                                                                                   |
 | Build `VITE_API_MODE=http` | Thành công; chỉ main JS/CSS, không sinh chunk transport mock; không có chuỗi tài khoản/mật khẩu demo, nút giả lập thành công hay `frontend.mock` trong assets |
 
 Frontend tests dùng `createMockTransport` độc lập với React/browser, đồng hồ cố định và AJV kiểm tra response theo contract mới. Cả 37 operation frontend đều có response được kiểm tra; không phải kiểm thử HTTP backend hay tất cả tổ hợp input.
@@ -54,10 +54,10 @@ Các ảnh dưới `screenshots/frontend-courts/` là dữ liệu demo, ghi lạ
 | `venue-courts-reviews.jpg`                 | Review sau khi sửa thành 4 sao              |
 | `admin-sport-guard.jpg`                    | Chặn xóa môn thể thao đang sử dụng          |
 
-Các ảnh nằm ngoài thư mục này là bằng chứng lịch sử của phiên bản trước, không dùng để chứng minh chức năng mới.
+Ảnh và kiểm tra tương tác trên ghi nhận giao diện hiện tại trước đợt dọn repository. Đợt dọn này giữ nguyên mã UI/browser mock và chạy lại contract check, 12 tests, production build. Chi tiết phần mô phỏng xem [MOCK_SCOPE.md](MOCK_SCOPE.md).
 
 ## Chưa xác minh / chưa triển khai
 
-Backend HTTP mới, MongoDB, đa người dùng/đa process, chống đua đặt lịch thật, cookie/token rotation thật, callback/chữ ký thanh toán, tiền mặt/hoàn tiền thực tế, deployment production. Browser fixtures chỉ phục vụ phát triển UI và bàn giao dữ liệu; 32 tests HTTP legacy không chứng minh các phần này.
+Backend HTTP mới, MongoDB, đa người dùng/đa process, chống đua đặt lịch thật, cookie/token rotation thật, callback/chữ ký thanh toán, tiền mặt/hoàn tiền thực tế, deployment production. Browser fixtures chỉ phục vụ phát triển UI và bàn giao dữ liệu; các tests hiện tại không chứng minh những phần backend này.
 
 Dev server và tab kiểm tra tạm đã được dừng/đóng sau khi kiểm tra. Chạy lại `npm run dev` để trải nghiệm từ seed ban đầu.

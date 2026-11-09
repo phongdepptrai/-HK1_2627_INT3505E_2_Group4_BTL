@@ -15,6 +15,8 @@ flowchart LR
 
 Frontend không chứa kết nối MongoDB, password hash, secret thanh toán hay HTTP server mới. Adapter mock trả `Response` để sử dụng cùng bộ xử lý JSON/lỗi. Không thể dùng Postman gọi adapter trong tab. `POST /payments/callback` chỉ là vị trí dành sẵn cho backend, không do frontend gọi hoặc mô phỏng như một HTTP endpoint.
 
+Danh sách phần mô phỏng, tài khoản mẫu và cách thử từng luồng nằm ở [MOCK_SCOPE.md](MOCK_SCOPE.md). Repo hiện chỉ giữ browser mock theo mô hình `courts`; chưa có server API hay script tạo index MongoDB.
+
 ## Mô hình và DTO
 
 API JSON dùng **camelCase**, kể cả khi nhóm dùng snake_case trong DB. `_id` của MongoDB được backend chuyển thành `id` chuỗi; frontend không giả định ObjectId, UUID hoặc ID mẫu. Không trả `password_hash`/`passwordHash` cho client.
@@ -117,5 +119,3 @@ Chưa chạy MongoDB hoặc API production, chưa xác minh nhiều process/clie
 2. Tạo `apps/web/.env.local` với `VITE_API_MODE=http`, `VITE_API_BASE_URL=/api/v1`, `API_PROXY_TARGET=http://127.0.0.1:8080`; restart Vite. Production cần reverse proxy `/api` hoặc URL backend/CORS thích hợp.
 3. Test đăng nhập/refresh và profile trước, rồi catalog/court/quote, booking actions, payment/review. UI có retry/loading/error; không tự fallback mock.
 4. Khi đổi quy tắc, sửa contract nguồn và các scenario test cùng frontend. Không chỉ đổi fixture để che lỗi backend.
-
-`apps/mock-api` cũ dùng `pitches`, `startAt`, cursor, vai trò cũ. Nó được giữ nguyên để tham khảo và chạy hồi quy; không tương thích frontend mới. `docs/API_DESIGN.md`, `ARCHITECTURE.md`, `MONGODB.md`, `BACKEND_HANDOFF.md`, `requests.http`, `VERIFICATION.md`, `database/indexes.mongosh.js` là tài liệu/schema legacy; không áp dụng nguyên trạng cho API mới.

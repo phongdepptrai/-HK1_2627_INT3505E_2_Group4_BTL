@@ -4,7 +4,7 @@ Frontend **JavaScript / React / Vite** cho đồ án Kiến trúc hướng dịc
 
 ## Chạy frontend
 
-Cần Node.js **22.12+** và npm. Mở terminal tại thư mục `BTnhom`:
+Cần Node.js **22.12+** và npm. Mở terminal tại thư mục gốc repo (nơi có `package.json`):
 
 ```powershell
 npm install
@@ -14,6 +14,8 @@ npm run dev
 Mở <http://127.0.0.1:5173>. Lệnh này chỉ chạy Vite; không cần API server hay MongoDB. `Ctrl+C` để dừng.
 
 Mặc định `VITE_API_MODE=mock`: API client sử dụng **dữ liệu mô phỏng trong bộ nhớ của tab**. Mỗi lần tải lại trang hoặc mở tab mới sẽ đặt lại tài khoản demo, lịch đặt, thanh toán và đánh giá. Chuyển trang bằng các liên kết trong app giữ nguyên dữ liệu. Đây không phải HTTP backend hay cơ chế lưu dữ liệu thật.
+
+**Mock phần nào?** Xem [MOCK_SCOPE.md](docs/MOCK_SCOPE.md): bảng endpoint được mô phỏng, dữ liệu mẫu, cách thử từng luồng và phần backend còn phải làm. Toàn bộ phản hồi dữ liệu/nghiệp vụ trong chế độ mặc định đến từ mock; giao diện, form và API client là mã frontend thực thi.
 
 | Tài khoản demo       | Vai trò                      | Mật khẩu     |
 | -------------------- | ---------------------------- | ------------ |
@@ -55,8 +57,6 @@ API_PROXY_TARGET=http://127.0.0.1:8080
 
 Khởi động lại Vite. `api/client.js` chuyển sang `fetch` và giữ nguyên `api/services.js` cùng các trang. HTTP lỗi sẽ hiện lỗi, không tự chuyển về dữ liệu giả. Cookie refresh đi cùng request (`credentials: include`); chi tiết CORS/cookie và quyền cần triển khai phía backend.
 
-**Không nối frontend mới vào mock cũ ở cổng 3001.** `apps/mock-api`, `packages/contracts/openapi.*`, `tests/api.test.js` và tài liệu legacy vẫn được giữ để tham khảo, sử dụng mô hình `pitches/startAt`, chưa được chuyển sang API mới. `npm run dev:api` chỉ khởi động mock cũ; Swagger tại đó cũng là bản cũ.
-
 ## Cấu trúc chính
 
 ```text
@@ -72,6 +72,7 @@ packages/contracts/frontend-openapi.*  # Contract mới để bàn giao
 packages/shared/time.js                # Múi giờ, khoảng thời gian, VND
 tests/frontend.test.js                 # Scenario mock + response contract
 docs/FRONTEND_HANDOFF.md                # Quy ước tích hợp
+docs/MOCK_SCOPE.md                      # Mock gì, thử thế nào, giới hạn ở đâu
 docs/FRONTEND_VERIFICATION.md           # Bằng chứng và giới hạn kiểm tra
 ```
 
@@ -79,7 +80,7 @@ docs/FRONTEND_VERIFICATION.md           # Bằng chứng và giới hạn kiểm
 
 ```powershell
 npm run test:frontend   # 12 tests, response schemas trên 37 operations frontend
-npm run contract:check # Kiểm tra cả contract mới và legacy
+npm run contract:check # Kiểm tra contract hiện tại và bản xuất YAML/JSON
 npm run check          # Contract + toàn bộ tests + production build
 ```
 

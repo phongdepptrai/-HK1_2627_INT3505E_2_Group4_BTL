@@ -4,11 +4,10 @@ info:
   title: Kèo Sân — Courts frontend handoff
   version: 2.0.0-draft
   description: Frontend contract for the agreed venues/courts/bookings model. No
-    production backend or MongoDB implementation. Browser mock is for UI work
-    only. Previous openapi.js belongs to the preserved legacy pitch HTTP mock.
-    Same /api/v1 base is a pre-release team migration, not backwards
-    compatibility. Callback provider protocol remains an explicit backend
-    integration task.
+    production backend or MongoDB implementation. All 37 frontend operations are
+    simulated by the browser mock for UI development; see docs/MOCK_SCOPE.md for
+    behavior and limitations. Payment callback is reserved for a future
+    backend/provider integration and is not mocked.
 servers:
   - url: /api/v1
     description: Future backend via same-origin gateway or Vite proxy
