@@ -1,0 +1,35 @@
+{
+  "name": "keo-san",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Kèo Sân — frontend skeleton and contract-first mock API for INT3505E",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev:web",
+    "dev:web": "npm run dev --workspace @keosan/web",
+    "dev:api": "npm run dev --workspace @keosan/mock-api",
+    "build": "npm run contract:export && npm run build --workspace @keosan/web",
+    "preview": "npm run preview --workspace @keosan/web",
+    "contract:export": "node scripts/export-contract.js",
+    "contract:check": "node scripts/check-contract.js",
+    "test": "node --test tests/*.test.js",
+    "check": "npm run contract:check && npm test && npm run build",
+    "format": "prettier --write .",
+    "dev:legacy": "concurrently -k -n api,web -c green,cyan \"npm run dev:api\" \"npm run dev:web\"",
+    "test:frontend": "node --test tests/frontend*.test.js"
+  },
+  "devDependencies": {
+    "@apidevtools/swagger-parser": "^12.1.0",
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "concurrently": "^9.2.1",
+    "prettier": "^3.6.2",
+    "yaml": "^2.8.1"
+  }
+}

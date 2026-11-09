@@ -1,0 +1,15 @@
+{
+  "name": "@keosan/mock-api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "cors": "^2.8.5",
+    "swagger-ui-express": "^5.0.1"
+  }
+}
